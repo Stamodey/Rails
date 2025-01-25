@@ -1,0 +1,38 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: 123456789
+  port: 5432
+  host: localhost
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  <<: *default
+  database: photo_studio_development
+  min_messages: notice
+  
+test:
+  <<: *default
+  database: photo_studio_test
+
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: photo_studio_production
+    username: photo_studio
+    password: <%= ENV["PHOTO_STUDIO_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: photo_studio_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: photo_studio_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: photo_studio_production_cable
+    migrations_paths: db/cable_migrate

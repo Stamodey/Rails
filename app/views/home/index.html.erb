@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Main Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background: #1E1B3A;
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 4em;
+      color: #FFF842;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+      text-shadow: 0 0 30px rgba(255, 248, 66, 0.7), 0 0 60px rgba(255, 248, 66, 0.5);
+      margin-bottom: 30px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .button-container a {
+      text-decoration: none;
+      padding: 20px 40px;
+      font-size: 1.5em;
+      color: white;
+      border: 2px solid #FFF842;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    .button-container a:hover {
+      transform: scale(1.1);
+      background: linear-gradient(120deg, #6A3D9C, #FFF842);
+      color: #403E10;
+    }
+
+    .button-container a span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Анимированный фон */
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, rgba(255, 248, 66, 1) 0%, rgba(255, 248, 66, 0) 80%);
+      border-radius: 50%;
+      animation: moveAround 10s linear infinite;
+    }
+
+    @keyframes moveAround {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }
+      25% {
+        transform: translate(50px, -70px);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translate(-50px, 50px);
+        opacity: 0.4;
+      }
+      75% {
+        transform: translate(-30px, -30px);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9em;
+      color: #D78BCC;
+      z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 3em;
+      }
+
+      .button-container a {
+        font-size: 1.2em;
+        padding: 15px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Анимированный фон -->
+  <div class="background" id="background"></div>
+
+  <div>
+    <h1>Explore the Data</h1>
+    <div class="button-container">
+      <a href="/photographers"><span>Photographers</span></a>
+      <a href="/clients"><span>Clients</span></a>
+      <a href="/services"><span>Services</span></a>
+      <a href="/bookings"><span>Bookings</span></a>
+    </div>
+  </div>
+
+  <footer>Designed with 💜 for a stunning experience</footer>
+
+  <script>
+    // Генерация пузырьков
+    const background = document.getElementById('background');
+
+    for (let i = 0; i < 100; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      
+      const size = Math.random() * 50 + 10; // Размеры пузырей
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      
+      // Случайные начальные позиции
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.top = `${Math.random() * 100}%`;
+      
+      bubble.style.animationDuration = `${Math.random() * 10 + 5}s`; // Разное время анимации
+      bubble.style.animationDelay = `${Math.random() * 5}s`; // Разное время задержки
+      background.appendChild(bubble);
+    }
+  </script>
+</body>
+</html>
